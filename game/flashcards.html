@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atceries un pārbaudi</title>
+
+  <!-- izmanto TAVU galveno style.css -->
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="header"></div>
+
+<a class="back-btn"
+     href="/game/index.html"
+     style="font-size:16px; padding:10px; margin-top:5px; display:inline-block;">
+    ← Visas spēles
+  </a>
+
+<div class="flashcards">
+
+  <h1 class="flashcards__title">Atceries un pārbaudi</h1>
+
+  <!-- ================= SETUP ================= -->
+  <div id="intro">
+    <p> 
+        <strong>Izlasi jautājumu, padomā atbildi (nekas nav jāraksta) un pārbaudi sevi. Pēc tam atzīmē, vai zināji.
+            </strong> 
+            </p>
+    <p>Lai spēlētu, izvēlies tēmas un jautājumu skaitu. </p>
+  </div>
+  
+  <div id="setup" class="flashcards__card">
+    
+    <h3>Tēmas</h3>
+
+    <div class="flashcards__checkbox-group">
+      <label><input type="checkbox" value="dievs"> Dievs un ticība</label>
+      <label><input type="checkbox" value="bausli"> Baušļi</label>
+      <label><input type="checkbox" value="sakramenti"> Sakramenti</label>
+      <label><input type="checkbox" id="all"> Visas</label>
+    </div>
+
+    <h3>Jautājumu skaits</h3>
+
+<select id="count" class="flashcards__select">
+  <option value="10">10</option>
+  <option value="20">20</option>
+  <option value="30">30</option>
+  <option value="40">40</option>
+  <option value="50">50</option>
+  <option value="all">Visi</option>
+</select>
+
+    <button class="flashcards__btn flashcards__btn--primary" onclick="startGame()">
+      Sākt
+    </button>
+
+  </div>
+
+  <!-- ================= GAME ================= -->
+  <div id="game" class="flashcards__card flashcards__hidden">
+
+    <div class="flashcards__topbar">
+      <span id="counter"></span>
+      <span id="percent"></span>
+    </div>
+
+<div id="questionCard" class="flashcards__flashcard">
+  <div id="question"></div>
+</div>
+
+<div id="answerCard" class="flashcards__flashcard flashcards__hidden">
+  <div id="answer"></div>
+</div>
+
+
+    <button id="showBtn"
+      class="flashcards__btn flashcards__btn--secondary"
+      onclick="showAnswer()">
+      Parādīt atbildi
+    </button>
+
+    <div id="answerButtons" class="flashcards__answers flashcards__hidden">
+      <button class="flashcards__btn flashcards__btn--green" onclick="answer('zinaju')">
+        Zināju
+      </button>
+      <button class="flashcards__btn flashcards__btn--yellow" onclick="answer('dalēji')">
+        Daļēji
+      </button>
+      <button class="flashcards__btn flashcards__btn--red" onclick="answer('nezinaju')">
+        Nezināju
+      </button>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="flashcards__progress">
+      <div id="progressBar" class="flashcards__progress-bar"></div>
+    </div>
+
+  </div>
+
+  <!-- ================= RESULT ================= -->
+  <div id="result" class="flashcards__card flashcards__hidden">
+
+    <h2 id="finalScore"></h2>
+
+    <button class="flashcards__btn flashcards__btn--restart" onclick="restartSame()">
+        Spēlēt vēlreiz
+    </button>
+
+    <button class="flashcards__btn flashcards__btn--new" onclick="goHome()">
+      Mainīt iestatījumus
+    </button>
+
+  </div>
+
+</div>
+
+<script src="/js/flashcards.js"></script>
+<script src="/js/app.js"></script>
+
+
+</body>
+</html>

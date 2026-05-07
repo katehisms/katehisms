@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citas lūgšanas</title>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div id="header"></div>
+
+  <!-- BACK POGA -->
+  <a class="back-btn"
+     href="/topics/prayers/index.html"
+     style="font-size:16px; padding:10px; margin-top:5px; display:inline-block;">
+    ← Lūgšanas
+  </a>
+
+  <!-- NOSAUKUMS -->
+  <h1>Citas lūgšanas</h1>
+
+  <!-- SATURS -->
+  <div id="accordion"
+       data-file="prayers.json"
+       data-section="citas">
+  </div>
+
+  <!-- NAVIGĀCIJA (ja vajag vēlāk) -->
+  <div class="lesson-nav one-left">
+    <a class="nav-btn prev" href="/topics/prayers/ikdienas/index.html">
+      ← Ikdienas lūgšanas
+    </a>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="/js/accordion-citas.js"></script>
+  <script src="/js/app.js"></script>
+
+</body>
+</html>

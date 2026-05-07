@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Kas grēko?</title>
+
+  <link rel="stylesheet" href="../style.css" />
+
+</head>
+<body>
+<div id="header"></div>
+
+  <main class="flashcards">
+
+    <!-- SETUP -->
+    <section id="setup" class="flashcards__screen">
+      <h1 class="flashcards__title">Kas grēko?</h1>
+
+      <p class="flashcards__text">
+        Izvēlies, kura rīcība grēko pret konkrēto bausli.
+      </p>
+
+      <button
+        class="flashcards__btn flashcards__btn--primary"
+        onclick="startGame()"
+      >
+        Sākt spēli
+      </button>
+    </section>
+
+    <!-- GAME -->
+    <section id="game" class="flashcards__screen flashcards__hidden">
+
+      <div class="flashcards__top">
+        <div id="counter">1 / 10</div>
+        <div id="percent">0%</div>
+      </div>
+
+      <h2 id="question" class="flashcards__question"></h2>
+
+      <div id="options"></div>
+
+    </section>
+
+    <!-- RESULT -->
+    <section id="result" class="flashcards__screen flashcards__hidden">
+
+      <h2 class="flashcards__title">Spēle pabeigta!</h2>
+
+      <p id="finalScore" class="flashcards__result"></p>
+
+      <div class="flashcards__result-actions">
+
+        <button
+          class="flashcards__btn flashcards__btn--primary"
+          onclick="restartSame()"
+        >
+          Spēlēt vēlreiz
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="../js/kas-greko.js"></script>
+  <script src="../js/app.js"></script>
+
+</body>
+</html>
