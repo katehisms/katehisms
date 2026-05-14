@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baušļi – skaidrojumi</title>
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="header"></div>
+
+<a class="back-btn" href="/game/index.html">← Visas spēles</a>
+
+<div class="flashcards">
+
+  <h1 class="flashcards__title">Baušļi – skaidrojumi</h1>
+
+  <!-- INTRO -->
+  <div id="intro">
+    <p><strong>Izvēlies pareizo skaidrojumu katram bauslim.</strong></p>
+  </div>
+
+  <!-- SETUP -->
+  <div id="setup" class="flashcards__card">
+    <button class="flashcards__btn flashcards__btn--primary" onclick="startGame()">
+      Sākt spēli
+    </button>
+  </div>
+
+  <!-- GAME -->
+  <div id="game" class="flashcards__card flashcards__hidden">
+
+    <div class="flashcards__topbar">
+      <span id="counter"></span>
+      <span id="percent"></span>
+    </div>
+
+    <div class="flashcards__flashcard">
+      <div id="question"></div>
+    </div>
+
+    <div id="options"></div>
+
+    <button id="nextBtn"
+      class="flashcards__btn flashcards__btn--secondary flashcards__hidden"
+      onclick="nextQuestion()">
+      Nākamais
+    </button>
+
+      <div id="options"></div>
+
+  </div>
+
+
+  <!-- RESULT -->
+  <div id="result" class="flashcards__card flashcards__hidden">
+    <h2 id="finalScore"></h2>
+
+<button class="flashcards__btn flashcards__btn--restart" onclick="restartSame()">     
+  Spēlēt vēlreiz
+    </button>
+  </div>
+
+</div>
+
+<script src="../js/bausli-skaidrojumi.js"></script>
+<script src="/js/app.js"></script>
+
+</body>
+</html>

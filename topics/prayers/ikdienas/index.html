@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ikdienas lūgšanas</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+  <div id="header"></div>
+
+  <!-- BACK -->
+  <a class="back-btn" href="/topics/index.html" style="font-size: 16px; padding: 10px; margin-top: 5px; display: inline-block;">← Lūgšanas</a>
+
+  <h1 style="text-align: center;">Ikdienas lūgšanas</h1>
+
+  <!-- SATURS -->
+  <div id="accordion"
+     data-file="prayers.json"
+     data-section="ikdienas"></div>
+
+  <!-- NAVIGĀCIJA -->
+  <div class="lesson-nav">
+
+    <a class="nav-btn prev" href="/topics/prayers/par-lugsanu/index.html">
+      ← Par lūgšanu
+    </a>
+
+    <a class="nav-btn next" href="/topics/prayers/citas/index.html">
+      Citas lūgšanas →
+    </a>
+
+  </div>
+
+  <script src="/js/accordion-ikdienas.js"></script>
+  <script src="/js/app.js"></script>
+
+</body>
+</html>
