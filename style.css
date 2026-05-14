@@ -984,6 +984,7 @@ background:#fddc71;
   border-radius:14px;
   font-size:16px;
   font-weight:700;
+  background-color: #f9f5e9;
 }
 
 .flashcards__btn--selected {
@@ -1019,4 +1020,8 @@ background:#fddc71;
 #actionRow .flashcards__btn {
   font-weight: 500;
   font-size: 18px;
+}
+
+.flashcards__btn--option {
+ background-color: #f9f5e9;
 }
