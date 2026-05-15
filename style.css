@@ -1026,11 +1026,11 @@ background:#fddc71;
  background-color: #f9f5e9;
 }
 
-.repeat{
+.think{
   background-color: rgb(193, 254, 181);
 }
 
-.repeat:hover{
+.think:hover{
   background-color: rgb(136, 238, 116);
 }
 
@@ -1042,11 +1042,11 @@ background:#fddc71;
   background-color: rgb(245, 221, 113);
 }
 
-.think{
+.repeat{
   background-color: rgb(178, 244, 245);
 }
 
-.think:hover{
+.repeat:hover{
   background-color: rgb(123, 225, 227);
 }
 
