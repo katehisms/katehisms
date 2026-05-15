@@ -1283,6 +1283,10 @@ label[for="saveDuration"] {
   font-size: 16px;
   transition: all 0.2s ease;
   text-align: center;
+  color:#152532;
+  -webkit-text-fill-color: #152532;
+appearance: none;
+-webkit-appearance: none;
 }
 
 #btnGeneratePDF{
@@ -1290,7 +1294,7 @@ label[for="saveDuration"] {
 }
 
 #btnClear{
-  background-color: #FCA47C;
+  background-color: #fc847c;
 }
 
 /* FONS AIZ POPUP */
