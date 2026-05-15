@@ -6,8 +6,57 @@ window.state = window.state || {
   saveDuration: 0,
   answers: {},
   notes: {},
-  customSins: []
+  customSins: [],
+  step: "intro",
+  updatedAt: Date.now()
 };
+
+// =========================
+// STORAGE HELPERS
+// =========================
+function saveState() {
+  window.state.updatedAt = Date.now();
+
+  localStorage.setItem("confessionApp", JSON.stringify({
+    state: window.state
+  }));
+}
+
+function loadStateFromStorage() {
+  const raw = localStorage.getItem("confessionApp");
+  if (!raw) return null;
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function isExpired(saved) {
+  const hours = parseInt(saved.state.saveDuration || 0);
+  if (!hours) return true;
+
+  const diff = Date.now() - saved.state.updatedAt;
+  return diff > hours * 60 * 60 * 1000;
+}
+
+// =========================
+// SCREEN MANAGER (🔥 FIX GALVENAIS BUG)
+// =========================
+function showScreen(screenId) {
+  const screens = ["screen-intro", "screen-prayer", "screen-questions"];
+
+  screens.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+
+  const target = document.getElementById(screenId);
+  if (target) target.style.display = "block";
+
+  window.scrollTo(0, 0);
+}
 
 // =========================
 // INIT
@@ -15,8 +64,21 @@ window.state = window.state || {
 document.addEventListener("DOMContentLoaded", async () => {
   await loadJSON();
 
+  const saved = loadStateFromStorage();
+
+  if (saved && !isExpired(saved)) {
+    window.state = saved.state;
+
+    renderIntro();
+    bindUI();
+
+    showResumeModal();
+    return;
+  }
+
   renderIntro();
   bindUI();
+  goToIntro();
 });
 
 // =========================
@@ -31,8 +93,6 @@ async function loadJSON() {
   }
 
   window.appData = await res.json();
-
-  console.log("✔ appData ielādēts");
 }
 
 // =========================
@@ -82,7 +142,7 @@ function bindUI() {
     .addEventListener("click", generatePDFData);
 
   document.getElementById("btnAddCustom")
-    .addEventListener("click", addCustomSin);
+  .addEventListener("click", () => addCustomSin());
 
   document.getElementById("btnClear")
     .addEventListener("click", () => {
@@ -104,28 +164,80 @@ function bindUI() {
     .addEventListener("click", () => {
       resetAll();
       document.getElementById("clearModal").classList.add("hidden");
-      goToIntro();
     });
+
+  // RESUME
+  document.getElementById("resumeContinue")?.addEventListener("click", () => {
+    document.getElementById("resumeModal").classList.add("hidden");
+    routeToStep();
+  });
+
+  document.getElementById("resumeRestart")?.addEventListener("click", () => {
+    localStorage.removeItem("confessionApp");
+
+    window.state = {
+      firstConfession: false,
+      saveDuration: 0,
+      answers: {},
+      notes: {},
+      customSins: [],
+      step: "intro",
+      updatedAt: Date.now()
+    };
+
+    document.getElementById("resumeModal").classList.add("hidden");
+
+    goToIntro();
+  });
 }
 
 // =========================
-// RESET
+// RESUME MODAL
+// =========================
+function showResumeModal() {
+  document.getElementById("resumeModal").classList.remove("hidden");
+}
+
+function routeToStep() {
+  const step = window.state.step;
+
+  if (step === "questions") goToQuestions();
+  else if (step === "prayer") goToPrayer();
+  else goToIntro();
+}
+
+// =========================
+// RESET (SOFT)
 // =========================
 function resetOnlyContent() {
   window.state.answers = {};
   window.state.notes = {};
   window.state.customSins = [];
+
+  saveState();
   renderQuestions();
 }
 
+// =========================
+// RESET (HARD)
+// =========================
 function resetAll() {
-  resetOnlyContent();
+  window.state = {
+    firstConfession: false,
+    saveDuration: 0,
+    answers: {},
+    notes: {},
+    customSins: [],
+    step: "intro",
+    updatedAt: Date.now()
+  };
 
-  window.state.firstConfession = false;
-  window.state.saveDuration = 0;
+  localStorage.removeItem("confessionApp");
 
   document.getElementById("firstConfession").checked = false;
   document.getElementById("saveDuration").value = "0";
+
+  goToIntro();
 }
 
 // =========================
@@ -133,10 +245,12 @@ function resetAll() {
 // =========================
 function goToPrayer() {
 
+  window.state.step = "prayer";
+  saveState();
+
   if (!window.appData?.content?.preparation_prayer) return;
 
-  show("screen-intro", false);
-  show("screen-prayer", true);
+  showScreen("screen-prayer");
 
   const block = window.appData.content.preparation_prayer;
 
@@ -167,15 +281,21 @@ function goToPrayer() {
 }
 
 function goToQuestions() {
-  show("screen-prayer", false);
-  show("screen-questions", true);
+
+  window.state.step = "questions";
+  saveState();
+
+  showScreen("screen-questions");
+
   renderQuestions();
 }
 
 function goToIntro() {
-  show("screen-intro", true);
-  show("screen-prayer", false);
-  show("screen-questions", false);
+
+  window.state.step = "intro";
+  saveState();
+
+  showScreen("screen-intro");
 }
 
 function show(id, visible) {
@@ -210,7 +330,10 @@ function renderQuestions() {
       top.className = "question-top";
 
       const cb = document.createElement("input");
-      cb.type = "checkbox";
+cb.type = "checkbox";
+
+// 🔥 RESTORE STATE
+cb.checked = !!window.state.answers[q.id];
 
       const label = document.createElement("span");
       label.innerText = " " + q.text;
@@ -219,11 +342,16 @@ function renderQuestions() {
       top.appendChild(label);
 
       const commentWrap = document.createElement("div");
-      commentWrap.className = "comment-wrap";
       commentWrap.style.display = "none";
 
       const commentBox = document.createElement("textarea");
       commentBox.placeholder = "Komentārs...";
+
+      // RESTORE NOTES (ja ir saglabāts)
+if (window.state.notes[q.id]) {
+  commentBox.value = window.state.notes[q.id];
+  commentWrap.style.display = "flex";
+}
 
       const closeBtn = document.createElement("button");
       closeBtn.innerText = "✕";
@@ -243,16 +371,20 @@ function renderQuestions() {
           commentBox.value = "";
           delete window.state.notes[q.id];
         }
+
+        saveState();
       });
 
       commentBox.addEventListener("input", (e) => {
         window.state.notes[q.id] = e.target.value;
+        saveState();
       });
 
       closeBtn.addEventListener("click", () => {
         commentBox.value = "";
         commentWrap.style.display = "none";
         delete window.state.notes[q.id];
+        saveState();
       });
 
       row.appendChild(top);
@@ -262,20 +394,36 @@ function renderQuestions() {
 
     container.appendChild(section);
   });
+
+  // RESTORE CUSTOM SINS
+window.state.customSins.forEach(sin => {
+  addCustomSin(sin);
+});
+
 }
 
 // =========================
 // CUSTOM SIN
 // =========================
-function addCustomSin() {
+function addCustomSin(existing = null) {
 
   const container = document.getElementById("questions-container");
 
-  const id = "custom_" + Date.now();
+  // EXISTING VAI NEW
+  const sinData = existing || {
+    id: "custom_" + Date.now(),
+    text: ""
+  };
+
+  // JAUNU PIEVIENO STATE
+  if (!existing) {
+    window.state.customSins.push(sinData);
+    saveState();
+  }
 
   const wrapper = document.createElement("div");
   wrapper.className = "question-row custom-sin";
-  wrapper.dataset.id = id;
+  wrapper.dataset.id = sinData.id;
 
   const top = document.createElement("div");
   top.className = "question-top";
@@ -291,21 +439,24 @@ function addCustomSin() {
   const textarea = document.createElement("textarea");
   textarea.placeholder = "Apraksti grēku...";
 
-  // 👉 SAVE TO STATE
-  window.state.customSins.push({
-    id,
-    text: ""
-  });
+  // RESTORE
+  textarea.value = sinData.text || "";
 
+  // LIVE SAVE
   textarea.addEventListener("input", (e) => {
-    const item = window.state.customSins.find(s => s.id === id);
-    if (item) item.text = e.target.value;
+    sinData.text = e.target.value;
+    saveState();
   });
 
+  // DELETE
   closeBtn.addEventListener("click", () => {
+
     wrapper.remove();
+
     window.state.customSins =
-      window.state.customSins.filter(s => s.id !== id);
+      window.state.customSins.filter(s => s.id !== sinData.id);
+
+    saveState();
   });
 
   top.appendChild(label);
