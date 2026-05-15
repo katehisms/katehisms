@@ -585,7 +585,7 @@ background:#fddc71;
 
 /* BUTTON VARIANTS */
 .flashcards__btn--primary {
-  background: #1ca3ba;
+  background: #35c9e3;
   color: #05232d;
 }
 
@@ -1024,4 +1024,353 @@ background:#fddc71;
 
 .flashcards__btn--option {
  background-color: #f9f5e9;
+}
+
+.repeat{
+  background-color: rgb(193, 254, 181);
+}
+
+.repeat:hover{
+  background-color: rgb(136, 238, 116);
+}
+
+.theory{
+  background-color: rgb(254, 241, 181);
+}
+
+.theory:hover{
+  background-color: rgb(245, 221, 113);
+}
+
+.think{
+  background-color: rgb(178, 244, 245);
+}
+
+.think:hover{
+  background-color: rgb(123, 225, 227);
+}
+
+
+.featured {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.featured-card {
+  background: #fff0b3;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.featured .label {
+  margin: 0 !important;
+}
+
+.featured .grid {
+  margin-top: 8px;
+}
+
+#intro-text p {
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+#intro-text p:last-child {
+  margin-bottom: 0;
+}
+
+#firstConfession {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+  accent-color: #f9ca49; /* te liec savu krāsu */
+}
+
+#questions-container input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: #097C87;
+  margin-right: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#questions-container textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-color:rgb(24, 38, 38)
+}
+
+#questions-container textarea:hover {
+  border-color:rgb(18, 105, 107)
+}
+
+/* LABEL */
+label[for="saveDuration"] {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #044349;
+}
+
+/* SELECT BOX */
+
+.save-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#saveDuration {
+  font-size: 20px;
+  padding: 8px 10px;
+  border: 2px solid #097C87;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #044349;
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+#saveDuration option {
+  background-color: #f2f9f8;
+}
+
+/* HOVER */
+#saveDuration:hover {
+  border-color: #055a63;
+}
+
+/* FOCUS (kad klikšķina vai izvēlas) */
+#saveDuration:focus {
+  outline: none;
+  border-color: #f5dd7c;
+  box-shadow: 0 0 0 3px rgba(245, 221, 124, 0.4);
+}
+
+/* NEDAUDZ KOMFORTA MOBILAJAM */
+#saveDuration {
+  min-height: 40px;
+}
+
+#prayer-text p {
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+#prayer-text p:last-child {
+  margin-bottom: 0;
+}
+
+#questions-container {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.question-row {
+  margin-bottom: 14px;
+}
+
+/* checkbox + teksts */
+.question-top {
+  display: flex;
+  align-items: center;
+}
+
+/* komentārs + krustiņš vienā rindā */
+.comment-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* textarea aizņem visu pieejamo platumu */
+.comment-wrap textarea {
+  flex: 1;
+  width: 100%;
+}
+
+/* krustiņš labajā pusē */
+.comment-wrap button {
+  font-size: 26px;
+  line-height: 1;
+  padding: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #777;
+
+  /* svarīgi: nelaiž zem textarea */
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+
+
+.comment-wrap button:hover {
+  color: #044349;
+}
+
+
+/* viss bloks tāds pats kā jautājumiem */
+.custom-sin {
+  margin-bottom: 12px;
+}
+
+/* virsraksta rinda */
+.custom-sin .question-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* textarea kā pārējiem */
+.custom-sin textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 6px;
+}
+
+/* ✕ KOPĒTS STILS no citiem */
+.custom-sin button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;   /* lielāks */
+  color: #777;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-sin button:hover {
+  color: #044349;
+}
+
+.btnAddCustom{
+  margin-top: 0px;
+}
+
+#btnGeneratePDF,
+#btnClear {
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+#btnGeneratePDF{
+  background-color: #f9df96;
+}
+
+#btnClear{
+  background-color: #FCA47C;
+}
+
+/* FONS AIZ POPUP */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+/* PASLĒPŠANA */
+.hidden {
+  display: none;
+}
+
+/* POPUP KASTE */
+.modal-box {
+  background: white;
+  padding: 24px;
+  border-radius: 18px;
+
+  width: 90%;
+  max-width: 420px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+  text-align: center;
+}
+
+/* TEKSTS */
+.modal-box p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #044349;
+  font-weight: 600;
+}
+
+/* POGAS */
+.modal-box button {
+  width: 100%;
+  padding: 12px;
+
+  margin-top: 10px;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+/* ATCELT */
+#clearCancel {
+  background: #a5fd98;
+  color: #044349;
+}
+
+/* DZĒST SATURU */
+#clearContent {
+  background: #fac251;
+  color: #044349;
+}
+
+/* DZĒST VISU */
+#clearAll {
+  background: #f77173;
+  color: rgb(23, 22, 22);
+}
+
+/* HOVER */
+.modal-box button:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
 }
