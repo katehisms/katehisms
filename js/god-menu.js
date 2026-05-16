@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
   // 🔥 JSON izvēle
-  let jsonFile = "/data/Dievs.json";
+  let jsonFile = "/data/dievs.json";
   let base = "/topics/god/questions.html";
 
   if (path.includes("commandments")) {
