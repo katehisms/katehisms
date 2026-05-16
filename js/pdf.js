@@ -122,7 +122,7 @@ async function generatePDFData() {
   const indent = 28;
 
   function checkPage(space = 10) {
-    if (y > 280 - space) {
+    if (y + space > 280) {
       doc.addPage();
       y = 22;
       doc.setFont("NotoSans");
@@ -216,7 +216,7 @@ async function generatePDFData() {
         y += qText.length * 5;
 
 
-        
+
         doc.setFont("NotoSans", "italic");
 
         const note = state.notes?.[q.id];
