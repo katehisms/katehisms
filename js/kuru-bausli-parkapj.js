@@ -7,6 +7,8 @@ let shuffled = [];
 let selected = null;
 let answered = false;
 
+const QUESTIONS_PER_GAME = 20;
+
 /* =========================
    10 BAUŠĻI
 ========================= */
@@ -25,14 +27,33 @@ const commandments = [
 ];
 
 /* =========================
+   SHUFFLE HELPER
+========================= */
+
+function shuffleArray(array) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
+
+
+/* =========================
    START GAME
 ========================= */
 
 async function startGame() {
   const res = await fetch("../data/kuru-bausli-parkapj.json");
+
+  if (!res.ok) {
+    throw new Error(`Neizdevās ielādēt JSON: ${res.status}`);
+  }
+
   data = await res.json();
 
-  shuffled = [...data].sort(() => Math.random() - 0.5);
+  // Sajauc visus jautājumus
+  const randomized = shuffleArray(data);
+
+  // Paņem tikai random 20 jautājumus
+  shuffled = randomized.slice(0, QUESTIONS_PER_GAME);
+
 
   current = 0;
   score = 0;
