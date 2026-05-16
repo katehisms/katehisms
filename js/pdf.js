@@ -208,14 +208,24 @@ async function generatePDFData() {
         if (!state.answers[q.id]) return;
 
         const qText = doc.splitTextToSize("• " + q.text, 165);
+        const qHeight = qText.length * 5;
+
+        checkPage(qHeight);
+
         doc.text(qText, left + 8, y);
         y += qText.length * 5;
 
+
+        
         doc.setFont("NotoSans", "italic");
 
         const note = state.notes?.[q.id];
         if (note?.trim()) {
           const n = doc.splitTextToSize(note, 150);
+          const nHeight = n.length * 5;
+
+            checkPage(nHeight);
+
           doc.text(n, left + 16, y);
           y += n.length * 5;
         }
@@ -260,6 +270,10 @@ async function generatePDFData() {
   // STEP 8–10
   // =========================
   renderStepAfter(steps[7]);
+
+  const step8Height = 3 * 5; // vai tavs lineHeight
+    checkPage(step8Height);
+
   renderStepAfter(steps[8]);
   renderStepAfter(steps[9]);
 
