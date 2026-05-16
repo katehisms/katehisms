@@ -208,30 +208,32 @@ async function generatePDFData() {
         if (!state.answers[q.id]) return;
 
         const qText = doc.splitTextToSize("• " + q.text, 165);
-        const qHeight = qText.length * 5;
+const qHeight = qText.length * 5;
 
-        checkPage(qHeight);
+const note = state.notes?.[q.id];
+const n = note?.trim()
+  ? doc.splitTextToSize(note, 150)
+  : [];
 
-        doc.text(qText, left + 8, y);
-        y += qText.length * 5;
+const nHeight = n.length * 5;
 
+// 🔥 vienmēr skaiti abus kopā
+const totalHeight = qHeight + nHeight + 5;
 
+checkPage(totalHeight);
 
-        doc.setFont("NotoSans", "italic");
+// render
+doc.text(qText, left + 8, y);
+y += qHeight;
 
-        const note = state.notes?.[q.id];
-        if (note?.trim()) {
-          const n = doc.splitTextToSize(note, 150);
-          const nHeight = n.length * 5;
+if (n.length) {
+  doc.setFont("NotoSans", "italic");
+  doc.text(n, left + 16, y);
+  y += nHeight;
+  doc.setFont("NotoSans", "normal");
+}
 
-            checkPage(nHeight);
-
-          doc.text(n, left + 16, y);
-          y += n.length * 5;
-        }
-        doc.setFont("NotoSans", "normal");
-
-        y += 1;
+y += 1;
       });
     });
   }
