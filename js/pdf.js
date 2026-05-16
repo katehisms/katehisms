@@ -1,5 +1,6 @@
 // =========================
-let fontPromise = null;// STATE
+let fontPromise = null;
+// STATE
 // =========================
 window.state = window.state || {
   firstConfession: false,
@@ -9,11 +10,11 @@ window.state = window.state || {
   customSins: []
 };
 
-window.pdfData = null;   // greksudze.json
+window.pdfData = null;
 window.fontReady = false;
 
 // =========================
-// LOAD PDF STRUCTURE (greksudze.json)
+// LOAD PDF STRUCTURE
 // =========================
 const pdfDataPromise = fetch("../data/greksudze.json")
   .then(r => r.json())
@@ -23,56 +24,72 @@ const pdfDataPromise = fetch("../data/greksudze.json")
   })
   .catch(err => console.error("❌ PDF JSON error", err));
 
-
 // =========================
-// FONT LOADER (ROBOTO)
+// FONT LOADER
 // =========================
 async function loadFontOnce() {
   if (fontPromise) return fontPromise;
 
   fontPromise = (async () => {
-  const { jsPDF } = window.jspdf;
+    const url =
+      "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf";
 
-  const url =
-    "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf";
+    const italicUrl =
+      "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSans/NotoSans-Italic.ttf";
 
-  const res = await fetch(url);
-  const buffer = await res.arrayBuffer();
+    // -------------------------
+    // REGULAR FONT
+    // -------------------------
+    const res = await fetch(url);
+    const buffer = await res.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
 
-  const bytes = new Uint8Array(buffer);
+    let binary = "";
+    for (let i = 0; i < bytes.length; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
 
-  let binary = "";
-  for (let i = 0; i < bytes.length; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
+    const base64 = btoa(binary);
 
-  const base64 = btoa(binary);
+    window.pdfFontBase64 = base64;
+    window.pdfFontName = "NotoSans";
 
-  window.pdfFontBase64 = base64;
-  window.pdfFontName = "NotoSans";
+    // -------------------------
+    // ITALIC FONT
+    // -------------------------
+    const italicRes = await fetch(italicUrl);
+    const italicBuffer = await italicRes.arrayBuffer();
+    const italicBytes = new Uint8Array(italicBuffer);
 
-  console.log("✔ font base64 gatavs");
-})();
+    let italicBinary = "";
+    for (let i = 0; i < italicBytes.length; i++) {
+      italicBinary += String.fromCharCode(italicBytes[i]);
+    }
+
+    const italicBase64 = btoa(italicBinary);
+
+    // 🔥 FIX: SAVE GLOBALLY
+    window.pdfFontItalicBase64 = italicBase64;
+
+    console.log("✔ fonti gatavi (regular + italic)");
+  })();
 
   return fontPromise;
 }
+
 // =========================
 // MAIN PDF FUNCTION
 // =========================
 async function generatePDFData() {
 
-  // =========================
-  // WAIT FOR RESOURCES
-  // =========================
-await loadFontOnce();
+  await loadFontOnce();
 
-  // drošs variants (ja eksistē)
   if (window.pdfDataPromise) {
-await pdfDataPromise;  
-}
+    await pdfDataPromise;
+  }
 
   const pdfData = window.pdfData;
-  const uiData = window.appData; // sirdsapzinas JSON
+  const uiData = window.appData;
   const state = window.state;
 
   if (!pdfData?.content?.steps) {
@@ -87,31 +104,28 @@ await pdfDataPromise;
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
+
+  // -------------------------
+  // REGISTER FONTS
+  // -------------------------
   doc.addFileToVFS("NotoSans.ttf", window.pdfFontBase64);
-doc.addFont("NotoSans.ttf", "NotoSans", "normal");
-doc.setFont("NotoSans");
+  doc.addFont("NotoSans.ttf", "NotoSans", "normal");
+
+  doc.addFileToVFS("NotoSans-Italic.ttf", window.pdfFontItalicBase64);
+  doc.addFont("NotoSans-Italic.ttf", "NotoSans", "italic");
+
+  doc.setFont("NotoSans");
 
   // =========================
-  // FONT (SVARĪGI - TIKAI VIENU REIZI)
-  // =========================
-  const font = window.pdfFontName || "helvetica";
-  doc.setFont(font);
-  doc.setFontSize(11);
-
-  let y = 22;
+  let y = 16;
   const left = 20;
   const indent = 28;
 
-  // =========================
-  // PAGE CONTROL
-  // =========================
   function checkPage(space = 10) {
     if (y > 280 - space) {
       doc.addPage();
       y = 22;
-
-      // obligāti turpini to pašu fontu jaunā lapā
-      doc.setFont(font);
+      doc.setFont("NotoSans");
       doc.setFontSize(11);
     }
   }
@@ -119,57 +133,52 @@ doc.setFont("NotoSans");
   // =========================
   // HEADER
   // =========================
-  doc.setFontSize(16);
+  doc.setFontSize(15);
   doc.text("Špikeris grēksūdzei", left, y);
   doc.text("Špikeris grēksūdzei", left + 0.2, y);
-  y += 12;
+  y += 8;
 
-  doc.setFontSize(11);
-
-  // =========================
-  // STEP RENDER HELPERS
   // =========================
   function renderStep(step) {
     if (!step) return;
 
-    checkPage(15);
-
-    doc.setFontSize(13);
-    doc.text(step.title || "", left, y);
-    doc.text(step.title || "", left + 0.1, y);
-    y += 8;
-
+    checkPage(8);
     doc.setFontSize(11);
 
     (step.text || []).forEach(t => {
       checkPage(10);
       doc.text(t || "", left, y);
-      y += 6;
+      doc.text(t || "", left + 0.1, y);
+      y += 5;
+    });
+    y += 1;
+  }
+
+  function renderStepAfter(step) {
+    if (!step) return;
+
+    checkPage(8);
+    doc.setFontSize(11);
+
+    (step.text || []).forEach(t => {
+      checkPage(10);
+      doc.text(t || "", left, y);
+      y += 5;
     });
 
-    y += 5;
   }
 
   const steps = pdfData.content.steps;
 
   // =========================
-  // STEP 1–2
+  // STEPS
   // =========================
   renderStep(steps[0]);
   renderStep(steps[1]);
 
-  // =========================
-  // STEP 3 (conditional)
-  // =========================
   const step3 = steps.find(s => s.type === "conditional");
 
   if (step3) {
-    checkPage(15);
-
-    doc.setFontSize(11);
-    doc.text(step3.title || "", left, y);
-    y += 8;
-
     const key = state.firstConfession
       ? "first_confession"
       : "not_first_confession";
@@ -177,28 +186,19 @@ doc.setFont("NotoSans");
     (step3.cases?.[key] || []).forEach(t => {
       checkPage(10);
       doc.text(t || "", left, y);
-      y += 6;
+      doc.text(t || "", left + 0.1, y);
+      y += 4;
     });
 
-    y += 5;
+    y += 2;
   }
 
-  // =========================
-  // STEP 4 (USER ANSWERS)
-  // =========================
   const step4 = steps.find(s => s.type === "dynamic_sins");
 
   if (step4) {
-    checkPage(15);
-
-    doc.setFontSize(13);
-    doc.text(step4.title || "", left, y);
-    doc.text(step4.title || "", left + 0.1, y);
-    y += 8;
-
-    doc.setFontSize(11);
     doc.text(step4.intro || "", left, y);
-    y += 8;
+    doc.text(step4.intro || "", left + 0.1, y);
+    y += 6;
 
     const commandments = uiData.content.commandments;
 
@@ -207,52 +207,63 @@ doc.setFont("NotoSans");
 
         if (!state.answers[q.id]) return;
 
-        checkPage(10);
-
         const qText = doc.splitTextToSize("• " + q.text, 165);
-        doc.text(qText, left, y);
-        y += qText.length * 6;
+        doc.text(qText, left + 8, y);
+        y += qText.length * 5;
+
+        doc.setFont("NotoSans", "italic");
 
         const note = state.notes?.[q.id];
         if (note?.trim()) {
-          const n = doc.splitTextToSize("Piezīme: " + note, 150);
-          doc.text(n, indent, y);
+          const n = doc.splitTextToSize(note, 150);
+          doc.text(n, left + 16, y);
           y += n.length * 5;
         }
+        doc.setFont("NotoSans", "normal");
 
-        y += 3;
+        y += 1;
       });
     });
-
-    y += 5;
   }
 
   // =========================
-// CUSTOM SINS (USER ADDED)
-// =========================
-(window.state.customSins || []).forEach(sin => {
+  // CUSTOM SINS
+  // =========================
+  (window.state.customSins || []).forEach(sin => {
+    if (!sin.text?.trim()) return;
 
-  if (!sin.text?.trim()) return;
-
-  checkPage(10);
-
-  const text = doc.splitTextToSize("• " + sin.text, 165);
-  doc.text(text, left, y);
-  y += text.length * 6;
-
-  y += 3;
-});
+    const text = doc.splitTextToSize("• " + sin.text, 165);
+    doc.text(text, left + 8, y);
+    y += text.length * 5 + 2;
+  });
 
   // =========================
-  // STEP 5–10
+  // STEP 5–7
   // =========================
-  steps.slice(4).forEach(renderStep);
+  renderStep(steps[4]);
+
+  doc.setFont("NotoSans", "italic");
+  renderStepAfter(steps[5]);
+
+  y += 2;
+
+  doc.setFont("NotoSans", "normal");
+  renderStep(steps[6]);
+
+    y += 2;
+  doc.setFontSize(13);
+  doc.text("Pēc grēksūdzes", left, y);
+  doc.text("Pēc grēksūdzes", left + 0.2, y);
+  y += 6;
 
   // =========================
-  // SAVE
+  // STEP 8–10
   // =========================
+  renderStepAfter(steps[7]);
+  renderStepAfter(steps[8]);
+  renderStepAfter(steps[9]);
+
   doc.save("sirdsapzinas-izmeklesana.pdf");
 }
 
-// export
 window.generatePDFData = generatePDFData;

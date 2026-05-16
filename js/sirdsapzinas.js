@@ -302,6 +302,34 @@ function show(id, visible) {
   document.getElementById(id).style.display = visible ? "block" : "none";
 }
 
+function renderClosingPrayer() {
+
+  if (!window.appData?.content?.after_examination_prayer) return;
+
+  const block =
+    window.appData.content.after_examination_prayer;
+
+  // TITLE
+  document.getElementById(
+    "closing-prayer-title"
+  ).innerText = block.title;
+
+  // TEXT CONTAINER
+  const box = document.getElementById(
+    "closing-prayer-text"
+  );
+
+  box.innerHTML = "";
+
+  // PARAGRAPHS
+  block.text.forEach(t => {
+
+    const p = document.createElement("p");
+    p.innerText = t;
+
+    box.appendChild(p);
+  });
+}
 // =========================
 // QUESTIONS
 // =========================
@@ -399,6 +427,8 @@ if (window.state.notes[q.id]) {
 window.state.customSins.forEach(sin => {
   addCustomSin(sin);
 });
+
+renderClosingPrayer();
 
 }
 

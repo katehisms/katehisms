@@ -50,14 +50,14 @@
         "id": "commandment_1",
         "title": "I bauslis. Tev nebūs citus dievus turēt līdzās man!",
         "questions": [
-          { "id": "q_1_1", "text": "Esmu kādreiz noliedzis Dievu." },
+          { "id": "q_1_1", "text": "Ir bijušas reizes, kad esmu noliedzis Dievu." },
           { "id": "q_1_2", "text": "Esmu šaubījies par ticību." },
           { "id": "q_1_3", "text": "Esmu aizmirsis regulāri lūgties." },
           { "id": "q_1_4", "text": "Esmu izvēlējies sportu, draugus, TV, videospēles, naudu vai miegu Dieva vietā, neatrodot laiku lūgšanai, Svētajai Misei vai katehēzei." },
           { "id": "q_1_5", "text": "Es mīlu lietas un cilvēkus vairāk nekā Dievu." },
           { "id": "q_1_6", "text": "Grūtībās esmu novērsies no Dieva un meklējis palīdzību tikai ar saviem spēkiem." },
-          { "id": "q_1_7", "text": "Esmu sevi uzskatījis augstāku, labāku par citiem." },
-          { "id": "q_1_8", "text": "Esmu lepni noraidījis Dievu, uzskatot, ka varu iztikt bez Viņa." },
+          { "id": "q_1_7", "text": "Esmu lepni noraidījis Dievu, uzskatot, ka varu iztikt bez Viņa." },
+          { "id": "q_1_8", "text": "Esmu sevi uzskatījis augstāku, labāku par citiem." },
           { "id": "q_1_9", "text": "Es ticu horoskopiem un burvjiem." }
         ]
       },
@@ -93,7 +93,7 @@
           { "id": "q_4_2", "text": "Esmu bijis nepaklausīgs vecākiem." },
           { "id": "q_4_3", "text": "Esmu izvairījies palīdzēt vecākiem un vecvecākiem." },
           { "id": "q_4_4", "text": "Esmu aizmirsis lūgties par saviem vecākiem." },
-          { "id": "q_4_5", "text": "Esmu slikti izturējies pret ģimenes locekļiem (brāļiem, māsām)." },
+          { "id": "q_4_5", "text": "Esmu slikti izturējies pret citiem ģimenes locekļiem (brāļiem, māsām)." },
           { "id": "q_4_6", "text": "Esmu aizmirsis atvainoties ģimenes locekļiem." },
           { "id": "q_4_7", "text": "Esmu necienīgi izturējies pret skolotājiem vai treneriem." }
         ]
@@ -112,15 +112,12 @@
   { "id": "q_5_7", "text": "Esmu kādu izslēdzis no spēlēm vai citādi bijis nelaipns." },
   { "id": "q_5_8", "text": "Esmu domājis sliktu par citiem." },
   { "id": "q_5_9", "text": "Esmu izraisījis konfliktus un strīdus." },
-  { "id": "q_5_10", "text": "Esmu bijis skaudīgs un greizsirdīgs." },
-  { "id": "q_5_11", "text": "Esmu draudējis kaut ko izdarīt, ja kāds man neizdara pa prātam." },
-  { "id": "q_5_12", "text": "Esmu ilgi turējis sevī naidu un atteicies piedot." },
-  { "id": "q_5_13", "text": "Esmu nicinājis citus." },
-  { "id": "q_5_14", "text": "Esmu kaitinājis vecākus, audzinātājus, skolotājus vai citus cilvēkus." },
-  { "id": "q_5_15", "text": "Esmu slikti uzvedies." },
-  { "id": "q_5_16", "text": "Esmu aizmirsis lūgt piedošanu par savu uzvedību, attieksmi, vārdiem un darbiem." },
-  { "id": "q_5_17", "text": "Esmu darījis pāri dzīvniekiem." },
-  { "id": "q_5_18", "text": "Esmu postījis dabu." }
+  { "id": "q_5_10", "text": "Esmu draudējis kaut ko izdarīt, ja kāds man neizdara pa prātam." },
+  { "id": "q_5_11", "text": "Esmu ilgi turējis sevī naidu un atteicies piedot." },
+  { "id": "q_5_12", "text": "Esmu kaitinājis vecākus, audzinātājus, skolotājus vai citus cilvēkus." },
+  { "id": "q_5_13", "text": "Esmu aizmirsis lūgt piedošanu par savu uzvedību, attieksmi, vārdiem un darbiem." },
+  { "id": "q_5_14", "text": "Esmu darījis pāri dzīvniekiem." },
+  { "id": "q_5_15", "text": "Esmu postījis dabu." }
 ]
       },
 
@@ -141,13 +138,13 @@
         "questions": [
   { "id": "q_7_1", "text": "Esmu zadzis." },
   { "id": "q_7_2", "text": "Esmu atbalstījis zādzību." },
-  { "id": "q_7_3", "text": "Esmu bijis skops." },
-  { "id": "q_7_4", "text": "Esmu bijis pārāk izšķērdīgs." },
-  { "id": "q_7_5", "text": "Esmu bojājis citu aizdotās lietas." },
-  { "id": "q_7_6", "text": "Esmu paturējis sev aizņemtas lietas." },
-  { "id": "q_7_7", "text": "Esmu bijis skaudīgs." },
-  { "id": "q_7_8", "text": "Esmu priecājies par citu neveiksmēm." },
-  { "id": "q_7_9", "text": "Esmu nedalījies ar tiem, kam ir vajadzīga palīdzība." },
+  { "id": "q_7_3", "text": "Esmu bijis pārāk izšķērdīgs." },
+  { "id": "q_7_4", "text": "Esmu bojājis citu aizdotās lietas." },
+  { "id": "q_7_5", "text": "Esmu paturējis sev citu aizdotās lietas." },
+  { "id": "q_7_6", "text": "Esmu bijis skops." },
+  { "id": "q_7_7", "text": "Esmu nedalījies ar tiem, kam ir vajadzīga palīdzība." },
+  { "id": "q_7_8", "text": "Esmu bijis skaudīgs." },
+  { "id": "q_7_9", "text": "Esmu priecājies par citu neveiksmēm." },
   { "id": "q_7_10", "text": "Esmu vēlējies iegūt sev to, kas pieder citiem." },
   { "id": "q_7_11", "text": "Esmu bijis neapmierināts ar to, kas man pieder." },
   { "id": "q_7_12", "text": "Esmu bijis nepateicīgs par to, kas man ir." },
@@ -167,7 +164,6 @@
   { "id": "q_8_5", "text": "Esmu uzvēlis vainu citiem." },
   { "id": "q_8_6", "text": "Esmu aprunājis citus." },
   { "id": "q_8_7", "text": "Esmu izpaudis citu cilvēku noslēpumus." },
-  { "id": "q_8_8", "text": "Esmu bijis iztapīgs vai lišķīgs, atbalstot citu ļaunus darbus vai netikumisku rīcību." },
   { "id": "q_8_9", "text": "Esmu bijis negodīgs skolā (piemēram, špikoju vai norakstīju no citiem)." },
   { "id": "q_8_10", "text": "Esmu bijis negodīgs citās nodarbēs (piemēram, sportā vai spēlēs)." }
 ]
