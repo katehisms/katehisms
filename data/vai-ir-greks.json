@@ -180,21 +180,6 @@
 },
 
     {
-  "id": 13,
-  "situation": "Es atteicos palīdzēt draugam, jo biju aizņemts ar citām lietām.",
-  "correctSin": "nav grēks",
-  "sinExplanation": "Būt aizņemtam un nevarēt palīdzēt citam pats par sevi nav grēks.",
-  "actions": [
-    { "text": "Paskaidrot draugam, kāpēc nevarēju palīdzēt", "correct": true },
-    { "text": "Vēlāk pievērst draugam uzmanību vai palīdzēt", "correct": true },
-    { "text": "Ignorēt draugu un nepaskaidrot neko", "correct": false },
-    { "text": "Izlikties, ka man vienalga", "correct": false }, 
-    { "text": "Nepalīdzēt arī citos gadījumos, kad man tāda iespēja ir", "correct": false }
-  ],
-  "actionExplanation": "Ir normāli būt aizņemtam un ne vienmēr varēt palīdzēt. Taču svarīgi ir neignorēt otru cilvēku un paskaidrot situāciju. Rūpes par attiecībām nozīmē atgriezties pie drauga, kad tas ir iespējams, un palīdzēt, ja var."
-},
-
-    {
   "id": 14,
   "situation": "Klasesbiedrs gribēja ar mani spēlēties, bet es izlikos, ka viņu neredzu un ignorēju.",
   "correctSin": "grēks",
@@ -244,18 +229,20 @@
 
     {
   "id": 17,
-  "situation": "Draugs man bija uzticējis noslēpumu, bet es to nejauši izstāstīju citiem.",
-  "correctSin": "nav grēks",
-  "sinExplanation": "Nejauša noslēpuma izpaušana bez nodoma nav grēks, bet tā var sāpināt otru cilvēku.",
+  "situation": "Es apzināti neaizgāju uz stundu un paliku ārpus klases, lai izvairītos no mācībām.",
+  "correctSin": "grēks",
+  "sinExplanation": "Apzināta stundu kavēšana bez iemesla ir necieņa pret mācībām un pienākumiem.",
   "actions": [
-    { "text": "Atvainoties draugam", "correct": true },
-    { "text": "Paskaidrot, ka tas notika nejauši", "correct": true },
-    { "text": "Mēģināt atjaunot uzticību ar savām darbībām", "correct": true },
-    { "text": "Turpmāk būt uzmanīgākam ar citu noslēpumiem", "correct": true },
-    { "text": "Izlikties, ka tas nav svarīgi", "correct": false },
-    { "text": "Noliegt, ka tas biju es, kurš šo noslēpumu izpauda citiem", "correct": false }
+    { "text": "Doties uz nākamo stundu un mācīties", "correct": true },
+    { "text": "Atzīt kļūdu un nākamreiz iet uz visām stundām", "correct": true },
+    { "text": "Runāt ar skolotāju, ja ir grūtības stundā", "correct": true },
+    { "text": "Atzīties vecākiem par apzināti kavēto stundu", "correct": true },
+
+    { "text": "Turpināt kavēt stundas", "correct": false },
+    { "text": "Izlikties, ka man bija iemesls, lai gan nebija", "correct": false },
+    { "text": "Paslēpties un izvairīties no skolas", "correct": false }
   ],
-  "actionExplanation": "Pat ja noslēpums tika izstāstīts nejauši, tas var sāpināt draugu un ietekmēt uzticību. Ir svarīgi atvainoties, paskaidrot situāciju un nākotnē būt uzmanīgākam ar citu cilvēku uzticēto informāciju. Uzticība attiecībās ir jāatjauno ar godīgumu un rūpību."
+  "actionExplanation": "Skola ir svarīga mācību vieta, un apzināta stundu kavēšana traucē gan mācībām, gan atbildības veidošanai."
 },
 
     {
@@ -677,23 +664,7 @@
     { "text": "Izlikties, ka tas ir normāli", "correct": false }
   ],
   "actionExplanation": "Dusmas var būt spēcīgas, bet tās nevajag izpaust, bojājot lietas. Labāk ir nomierināties un atrast mierīgu risinājumu."
-}, 
-{
-  "id": 44,
-  "situation": "Es apzināti neaizgāju uz stundu un paliku ārpus klases, lai izvairītos no mācībām.",
-  "correctSin": "grēks",
-  "sinExplanation": "Apzināta stundu kavēšana bez iemesla ir necieņa pret mācībām un pienākumiem.",
-  "actions": [
-    { "text": "Doties uz nākamo stundu un mācīties", "correct": true },
-    { "text": "Atzīt kļūdu un nākamreiz iet uz visām stundām", "correct": true },
-    { "text": "Runāt ar skolotāju, ja ir grūtības stundā", "correct": true },
-    { "text": "Atzīties vecākiem par apzināti kavēto stundu", "correct": true },
+} 
 
-    { "text": "Turpināt kavēt stundas", "correct": false },
-    { "text": "Izlikties, ka man bija iemesls, lai gan nebija", "correct": false },
-    { "text": "Paslēpties un izvairīties no skolas", "correct": false }
-  ],
-  "actionExplanation": "Skola ir svarīga mācību vieta, un apzināta stundu kavēšana traucē gan mācībām, gan atbildības veidošanai."
-}
   ]
 }
