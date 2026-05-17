@@ -5,7 +5,7 @@ let score = 0;
 // ---------- LOAD ALL DATA ----------
 async function loadAllData() {
   const eksamens = await fetch("../data/eksamens.json").then(r => r.json());
-  const dievs = await fetch("../data/Dievs.json").then(r => r.json());
+  const dievs = await fetch("../data/dievs.json").then(r => r.json());
   const bausli = await fetch("../data/bausli.json").then(r => r.json());
   const sakramenti = await fetch("../data/sakramenti.json").then(r => r.json());
 

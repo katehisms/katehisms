@@ -26,7 +26,7 @@ async function loadThemes() {
   let all = [];
 
   if (selectedThemes.includes("dievs")) {
-    const d = await fetch("../data/Dievs.json").then(r => r.json());
+    const d = await fetch("../data/dievs.json").then(r => r.json());
     all.push(...extractQuestions(d));
   }
 
