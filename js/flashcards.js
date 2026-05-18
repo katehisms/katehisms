@@ -4,6 +4,9 @@ let score = 0;
 let selectedThemes = [];
 let selectedCount = 10;
 
+// ---------- SAVE KEY ----------
+const SAVE_KEY = "flashcards_resume_save";
+
 // ---------- HELPERS ----------
 function extractQuestions(data) {
   let q = [];
@@ -19,6 +22,48 @@ function extractQuestions(data) {
 
 function shuffle(arr) {
   return arr.sort(() => Math.random() - 0.5);
+}
+
+// ---------- SAVE GAME ----------
+function saveGame() {
+  const data = {
+    questions,
+    currentIndex,
+    score,
+    selectedThemes,
+    selectedCount
+  };
+
+  localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+}
+
+// ---------- LOAD GAME ----------
+function loadGame() {
+  const raw = localStorage.getItem(SAVE_KEY);
+  if (!raw) return false;
+
+  const data = JSON.parse(raw);
+
+  questions = data.questions || [];
+  currentIndex = data.currentIndex || 0;
+  score = data.score || 0;
+  selectedThemes = data.selectedThemes || [];
+  selectedCount = data.selectedCount || 10;
+
+  document.getElementById("intro").classList.add("flashcards__hidden");
+  document.getElementById("setup").classList.add("flashcards__hidden");
+  document.getElementById("result").classList.add("flashcards__hidden");
+
+  document.getElementById("game").classList.remove("flashcards__hidden");
+
+  showQuestion();
+
+  return true;
+}
+
+// ---------- CLEAR SAVE ----------
+function clearSave() {
+  localStorage.removeItem(SAVE_KEY);
 }
 
 // ---------- LOAD ----------
@@ -45,6 +90,7 @@ async function loadThemes() {
 
 // ---------- START ----------
 async function startGame() {
+
   selectedThemes = [];
 
   document.querySelectorAll("#setup input[type=checkbox]:checked")
@@ -65,7 +111,6 @@ async function startGame() {
 
   let all = await loadThemes();
 
-  // 👉 "Visi" režīms
   if (countValue === "all") {
     questions = shuffle(all);
   } else {
@@ -76,7 +121,8 @@ async function startGame() {
   currentIndex = 0;
   score = 0;
 
-  // 👉 RESET UI
+  saveGame();
+
   document.getElementById("answer").innerText = "";
   document.getElementById("answerCard").classList.add("flashcards__hidden");
 
@@ -89,13 +135,10 @@ async function startGame() {
 
 // ---------- GAME ----------
 function showQuestion() {
-  // 👉 paslēp atbildi
-  document.getElementById("answerCard").classList.add("flashcards__hidden");
 
-  // 👉 iztīra veco atbildi
+  document.getElementById("answerCard").classList.add("flashcards__hidden");
   document.getElementById("answer").innerText = "";
 
-  // 👉 pogu stāvoklis
   document.getElementById("answerButtons").classList.add("flashcards__hidden");
   document.getElementById("showBtn").classList.remove("flashcards__hidden");
 
@@ -111,6 +154,7 @@ function showQuestion() {
 
 // ---------- SHOW ANSWER ----------
 function showAnswer() {
+
   document.getElementById("answer").innerText =
     questions[currentIndex].a;
 
@@ -121,10 +165,13 @@ function showAnswer() {
 
 // ---------- ANSWER ----------
 function answer(type) {
+
   if (type === "zinaju") score += 1;
   if (type === "dalēji") score += 0.5;
 
   currentIndex++;
+
+  saveGame();
 
   if (currentIndex >= questions.length) {
     endGame();
@@ -135,6 +182,7 @@ function answer(type) {
 
 // ---------- PROGRESS ----------
 function updateProgress() {
+
   let percent = (currentIndex / questions.length) * 100;
 
   document.getElementById("progressBar").style.width = percent + "%";
@@ -144,6 +192,9 @@ function updateProgress() {
 
 // ---------- END ----------
 function endGame() {
+
+  clearSave();
+
   document.getElementById("game").classList.add("flashcards__hidden");
   document.getElementById("result").classList.remove("flashcards__hidden");
 
@@ -155,10 +206,13 @@ function endGame() {
 
 // ---------- RESTART ----------
 function restartSame() {
+
   currentIndex = 0;
   score = 0;
 
   questions = shuffle(questions);
+
+  saveGame();
 
   document.getElementById("result").classList.add("flashcards__hidden");
   document.getElementById("game").classList.remove("flashcards__hidden");
@@ -168,6 +222,65 @@ function restartSame() {
 
 // ---------- HOME ----------
 function goHome() {
+
+  clearSave();
+
   document.getElementById("result").classList.add("flashcards__hidden");
   document.getElementById("setup").classList.remove("flashcards__hidden");
 }
+
+// ---------- CONTINUE MODAL ----------
+function showContinueModal() {
+
+  const modal = document.createElement("div");
+
+  modal.innerHTML = `
+    <div class="save-modal-overlay">
+      <div class="save-modal">
+
+        <h2>Turpināt spēli?</h2>
+
+        <p>Atrasta nepabeigta spēle.</p>
+
+        <div class="save-modal-buttons">
+
+          <button id="continueGameBtn">
+            Turpināt
+          </button>
+
+          <button id="newGameBtn">
+            Jauna spēle
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  document
+    .getElementById("continueGameBtn")
+    .onclick = () => {
+      modal.remove();
+      loadGame();
+    };
+
+  document
+    .getElementById("newGameBtn")
+    .onclick = () => {
+      clearSave();
+      modal.remove();
+    };
+}
+
+// ---------- ON LOAD ----------
+window.addEventListener("load", () => {
+
+  const saved = localStorage.getItem(SAVE_KEY);
+
+  if (saved) {
+    showContinueModal();
+  }
+});

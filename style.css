@@ -1378,3 +1378,61 @@ appearance: none;
   transform: translateY(-1px);
   opacity: 0.95;
 }
+
+.save-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+}
+
+.save-modal {
+  background: white;
+  padding: 32px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+
+  text-align: center;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.save-modal h2 {
+  margin-bottom: 12px;
+}
+
+.save-modal p {
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+
+.save-modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.save-modal button {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#continueGameBtn {
+  background: #83ef89;
+  color: rgb(0, 0, 0);
+}
+
+#newGameBtn {
+  background: #efcb53;
+  color: rgb(0, 0, 0);
+
+}
