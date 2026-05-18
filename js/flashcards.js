@@ -238,9 +238,9 @@ function showContinueModal() {
     <div class="save-modal-overlay">
       <div class="save-modal">
 
-        <h2>Turpināt spēli?</h2>
+        <h2>Turpināt testu?</h2>
 
-        <p>Atrasta nepabeigta spēle.</p>
+        <p>Atrasts nepabeigts tests.</p>
 
         <div class="save-modal-buttons">
 
